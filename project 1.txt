@@ -1,0 +1,71 @@
+#include <stdio.h>
+
+int main() {
+    int choice, count = 0, i, search_no, found;
+    char vehicle_no[50][20];
+    char complaint[50][100];
+
+    while (1) {
+        printf("\n===== VEHICLE SERVICE JOB CARDS =====\n");
+        printf("1. Open job cards\n");
+        printf("2. View All job cards\n");
+        printf("3. Search Job cards by S. No.\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                if (count == 50) {
+                    printf("Job card list is full!\n");
+                } else {
+                    printf("Enter vehicle no: ");
+                    scanf(" %19[^\n]", vehicle_no[count]);
+                    printf("Enter complaint: ");
+                    scanf(" %99[^\n]", complaint[count]);
+                    count++;
+                    printf("Job card opened successfully!\n");
+                }
+                break;
+
+            case 2:
+                if (count == 0) {
+                    printf("No job cards available.\n");
+                } else {
+                    printf("\nS.No.\tVehicle Number\tComplaint\n");
+                    printf("------------------------------------------\n");
+                    for (i = 0; i < count; i++) {
+                        printf("%d\t%-15s\t%s\n", i + 1, vehicle_no[i], complaint[i]);
+                    }
+                }
+                break;
+
+            case 3:
+                printf("Enter Job card S.No. to search: ");
+                scanf("%d", &search_no);
+                found = 0;
+                for (i = 0; i < count; i++) {
+                    if (i + 1 == search_no) {
+                        printf("\nJob card found\n");
+                        printf("S. No.: %d\n", i + 1);
+                        printf("Vehicle No: %s\n", vehicle_no[i]);
+                        printf("Complaint: %s\n", complaint[i]);
+                        found = 1;
+                        break;
+                    }
+                }
+                if (found == 0) {
+                    printf("No job card exists with that S.No.\n");
+                }
+                break;
+
+            case 4:
+                printf("Thank you for using Vehicle Service Job cards.\n");
+                return 0;
+
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+    return 0;
+}
